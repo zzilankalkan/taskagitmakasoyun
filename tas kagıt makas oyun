@@ -1,0 +1,43 @@
+import random
+import tkinter as tk
+
+def oyun(kullanici_secimi):
+ 
+    secenekler = ["taş", "kağıt", "makas"]
+
+    bilgisayar_secimi = secenekler[random.randint(0, 2)]
+
+    if kullanici_secimi == bilgisayar_secimi:
+        sonuc_etiketi.config(text=f"Sen: {kullanici_secimi.capitalize()}\nBilgisayar: {bilgisayar_secimi.capitalize()}\nBerabere!")
+    elif (kullanici_secimi == "taş" and bilgisayar_secimi == "makas") or \
+         (kullanici_secimi == "kağıt" and bilgisayar_secimi == "taş") or \
+         (kullanici_secimi == "makas" and bilgisayar_secimi == "kağıt"):
+        sonuc_etiketi.config(text=f"Sen: {kullanici_secimi.capitalize()}\nBilgisayar: {bilgisayar_secimi.capitalize()}\nKazandın!")
+    else:
+        sonuc_etiketi.config(text=f"Sen: {kullanici_secimi.capitalize()}\nBilgisayar: {bilgisayar_secimi.capitalize()}\nKaybettin!")
+
+pencere = tk.Tk()
+pencere.title("Taş Kağıt Makas")
+pencere.geometry("300x200")
+
+def secim_butonu_tıkla(secim):
+
+    kullanici_secimi = secim.lower()
+    oyun(kullanici_secimi)
+
+buton_frame = tk.Frame(pencere)
+buton_frame.pack(pady=20)
+
+tas_butonu = tk.Button(buton_frame, text="Taş", command=lambda: secim_butonu_tıkla("taş"), width=10)
+tas_butonu.grid(row=0, column=0, padx=5)
+
+kağıt_butonu = tk.Button(buton_frame, text="Kağıt", command=lambda: secim_butonu_tıkla("kağıt"), width=10)
+kağıt_butonu.grid(row=0, column=1, padx=5)
+
+makas_butonu = tk.Button(buton_frame, text="Makas", command=lambda: secim_butonu_tıkla("makas"), width=10)
+makas_butonu.grid(row=0, column=2, padx=5)
+
+sonuc_etiketi = tk.Label(pencere, text="", font=("Helvetica", 12), pady=20)
+sonuc_etiketi.pack()
+
+pencere.mainloop()
